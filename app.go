@@ -4,6 +4,7 @@ import (
     "bufio"
     "bytes"
     "encoding/base64"
+    "encoding/json"
     "fmt"
     "github.com/atotto/clipboard"
     "github.com/howeyc/fsnotify"
@@ -17,6 +18,36 @@ import (
 const (
     clientID     = "48084fee9cbbc92"
 )
+
+type ImgurResponse struct {
+    Data            DataObject
+    Success         bool
+    Status          int
+}
+
+type DataObject struct {
+    Id              string
+    Title           string
+    Description     string
+    DateTime        string
+    Type            string
+    Animated        bool
+    Width           int
+    Height          int
+    Size            int
+    Views           int
+    Bandwidth       int
+    Vote            bool
+    Favorite        bool
+    Nsfw            bool
+    Section         bool
+    AccountURL      string
+    AccountID       int
+    CommentPreview  bool
+    DeleteHash      string
+    Name            string
+    Link            string
+}
 
 func main() {
     watcher, err := fsnotify.NewWatcher()
@@ -69,7 +100,12 @@ func main() {
                         body, _ := ioutil.ReadAll(resp.Body)
                         fmt.Println("response Body:", string(body))
 
-                        err = clipboard.WriteAll(filename)
+                        var response ImgurResponse
+                        json.Unmarshal(body, &response)
+
+                        fmt.Println(response)
+                        var link = "http://i.imgur.com/" + response.Data.Id + ".png"
+                        err = clipboard.WriteAll(link)
                         os.Remove(filename)
                     }
                 }
