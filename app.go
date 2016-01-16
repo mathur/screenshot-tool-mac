@@ -82,7 +82,6 @@ func main() {
                         fReader := bufio.NewReader(imgFile)
                         fReader.Read(buf)
                         imgBase64Str := base64.StdEncoding.EncodeToString(buf)
-                        fmt.Println(imgBase64Str)
 
                         url := "https://api.imgur.com/3/image"
                         var jsonStr = []byte(`{"image":"` + imgBase64Str + `"}`)
@@ -98,8 +97,6 @@ func main() {
                         defer resp.Body.Close()
 
                         body, _ := ioutil.ReadAll(resp.Body)
-                        fmt.Println("response Body:", string(body))
-
                         var response ImgurResponse
                         json.Unmarshal(body, &response)
 
