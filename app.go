@@ -103,7 +103,9 @@ func main() {
                         fmt.Println(response)
                         var link = "http://i.imgur.com/" + response.Data.Id + ".png"
                         err = clipboard.WriteAll(link)
-                        os.Remove(filename)
+
+                        // Don't remove file for now
+                        // os.Remove(filename)
                     }
                 }
             case err := <-watcher.Error:
