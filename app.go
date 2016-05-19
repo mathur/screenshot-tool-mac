@@ -16,7 +16,7 @@ import (
 )
 
 const (
-    clientID     = "48084fee9cbbc92"
+    clientID     = ""
 )
 
 type ImgurResponse struct {
@@ -103,9 +103,6 @@ func main() {
                         fmt.Println(response)
                         var link = "http://i.imgur.com/" + response.Data.Id + ".png"
                         err = clipboard.WriteAll(link)
-
-                        // Don't remove file for now
-                        // os.Remove(filename)
                     }
                 }
             case err := <-watcher.Error:
