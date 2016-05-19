@@ -68,8 +68,6 @@ func main() {
                     beginningIndex := strings.LastIndex(filename, "/") + 1
 
                     if string(filename[beginningIndex]) != "." {
-                        log.Println("Detected " + filename)
-
                         imgFile, err := os.Open(filename)
                         if err != nil {
                             fmt.Println(err)
@@ -99,8 +97,7 @@ func main() {
                         body, _ := ioutil.ReadAll(resp.Body)
                         var response ImgurResponse
                         json.Unmarshal(body, &response)
-
-                        fmt.Println(response)
+                        
                         var link = "http://i.imgur.com/" + response.Data.Id + ".png"
                         err = clipboard.WriteAll(link)
                     }
