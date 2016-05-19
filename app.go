@@ -111,7 +111,7 @@ func main() {
         }
     }()
 
-    err = watcher.Watch("/Users/rohan/Screenshots/")
+    err = watcher.Watch("~/Screenshots/")
     if err != nil {
         log.Fatal(err)
     }
