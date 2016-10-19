@@ -97,7 +97,7 @@ func main() {
                         body, _ := ioutil.ReadAll(resp.Body)
                         var response ImgurResponse
                         json.Unmarshal(body, &response)
-                        
+
                         var link = "http://i.imgur.com/" + response.Data.Id + ".png"
                         err = clipboard.WriteAll(link)
                     }
